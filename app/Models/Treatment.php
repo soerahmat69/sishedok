@@ -18,7 +18,7 @@ class Treatment extends Model
     protected $casts = [
         'price' => MoneyCast::class,
     ];
-    protected $fillable = ['price','notes','description'];
+    protected $fillable = ['price','notes','description','patient_id'];
 
     public function patient(): BelongsTo
     {

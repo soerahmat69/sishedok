@@ -25,7 +25,14 @@ class TreatmentResource extends Resource
     {
         return $form
             ->schema([
-                //
+                Forms\Components\TextInput::make('description')->required()->maxLength(255),
+                Forms\Components\TextInput::make('price')
+                    ->numeric()
+                    ->prefix('€')
+                    ->maxValue(42949672.95),
+                Forms\Components\Select::make('patient_id')->relationship('patient', 'name')->searchable()->preload()->required(),
+                Forms\Components\TextInput::make('notes')->required()->maxLength(255),
+
             ]);
     }
 

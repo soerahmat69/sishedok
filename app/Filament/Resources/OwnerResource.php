@@ -3,17 +3,17 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\OwnerResource\Pages;
-use App\Filament\Resources\OwnerResource\RelationManagers;
 use App\Models\Owner;
 use Filament\Forms;
+use Filament\Forms\Components\Set;
 use Filament\Forms\Form;
+use Filament\Forms\Set as FormsSet;
 use Filament\Resources\Resource;
+use stdClass;
+use Filament\Tables\Contracts\HasTable;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Filament\Forms\Components\TextInput;
-use Filament\Tables\Actions\ViewAction;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Str;
 
 class OwnerResource extends Resource
 {
@@ -28,8 +28,7 @@ class OwnerResource extends Resource
                 Forms\Components\TextInput::make('name')->required()->maxLength(255),
                 Forms\Components\TextInput::make('phone')->integer()->required()->maxLength(255),
                 Forms\Components\TextInput::make('email')->email()->required()->maxLength(255),
-                
-                
+                //membuat slug  Forms\Components\TextInput::make('email')->live(onBlur:true)->afterStateUpdated(fn (FormsSet $set, ?string $state) => $set('name', Str::slug($state)))->required()->maxLength(255),
             ]);
     }
 
@@ -37,18 +36,15 @@ class OwnerResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('name')            ])
+                Tables\Columns\TextColumn::make('No')->rowIndex(),
+                Tables\Columns\TextColumn::make('name')->limit(50)])
             ->filters([
            
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
                 
-            ])
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
             ]);
     }
 
@@ -63,9 +59,9 @@ class OwnerResource extends Resource
     {
         return [
             'index' => Pages\ListOwners::route('/'),
-            'view' => Pages\ViewOwner::route('/{record}'),
             'create' => Pages\CreateOwner::route('/create'),
             'edit' => Pages\EditOwner::route('/{record}/edit'),
+            'view' => Pages\ViewOwner::route('/{record}'),
         ];
     }
 }

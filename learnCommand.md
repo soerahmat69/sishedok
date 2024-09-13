@@ -1,11 +1,11 @@
 # Belajar Command laravel  
 ## Membuat model
 ```bash
-composer artisan make:model NamaModel -m 
+php artisan make:model NamaModel -m 
 ```
 ## Membuat Database migration 
 ```bash
-composer artisan make:migration NamaTabelMigration 
+php artisan make:migration NamaTabelMigration 
 ```
 # Belajar Command filament  
 ## Membuat resource page

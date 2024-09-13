@@ -22,7 +22,6 @@ class AdminPanelProvider extends PanelProvider
 {
     public static $title = 'Custom Page Title';
 
-
     public function panel(Panel $panel): Panel
     {
         
@@ -41,8 +40,8 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
             ->widgets([
-                Widgets\AccountWidget::class,
-                Widgets\FilamentInfoWidget::class,
+                // Widgets\AccountWidget::class,
+                // Widgets\FilamentInfoWidget::class,
             ])
             ->middleware([
                 EncryptCookies::class,
