@@ -11,13 +11,7 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
-use Filament\Forms\Components\TextInput;
-use Filament\Forms\Components\DatePicker;
-use Filament\Forms\Components\Select;
 use Illuminate\Database\Eloquent\Model;
-use Filament\Tables\Actions\ViewAction;
 
 
 
@@ -35,6 +29,8 @@ class PatientResource extends Resource
             Forms\Components\TextInput::make('name')
                 ->required()
                 ->maxLength(255),
+                Forms\Components\FileUpload::make('image')
+                ->required(),           
             Forms\Components\Select::make('type')
                 ->options([
                     'cat' => 'Cat',
@@ -72,6 +68,9 @@ class PatientResource extends Resource
     {
         return $table
             ->columns([
+                Tables\Columns\TextColumn::make('No')
+                    ->rowIndex(),
+                    Tables\Columns\ImageColumn::make('image'),
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('type'),

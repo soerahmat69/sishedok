@@ -14,7 +14,7 @@ class Patient extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name','date_of_birth','owner_id','type'
+        'name','date_of_birth','owner_id','type','image'
     ];
     
     public function owner(): BelongsTo

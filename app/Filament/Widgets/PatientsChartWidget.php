@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\DB;
 
 class PatientsChartWidget extends ChartWidget
 {
+    
     protected static ?string $heading = 'Patients Chart';
     protected static ?string $pollingInterval = '8s';
     protected function getData(): array

@@ -11,13 +11,14 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class TreatmentResource extends Resource
 {
     protected static ?string $model = Treatment::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-m-hand-thumb-up';
     protected array $options;
     protected static array $staticOptions;
 
@@ -47,6 +48,11 @@ class TreatmentResource extends Resource
                     ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime(),
+            ])->recordUrl(
+                fn (Model $record): string => Pages\ViewTreatment::getUrl([$record->id]))
+            ->actions([
+                Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ]);
     }
 
@@ -63,6 +69,7 @@ class TreatmentResource extends Resource
             'index' => Pages\ListTreatments::route('/'),
             'create' => Pages\CreateTreatment::route('/create'),
             'edit' => Pages\EditTreatment::route('/{record}/edit'),
+            'view' => Pages\ViewTreatment::route('/{record}'),
         ];
     }
 }

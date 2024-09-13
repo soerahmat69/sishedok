@@ -2,6 +2,8 @@
 
 namespace App\Providers\Filament;
 
+use App\Filament\Widgets\PatientsChartWidget;
+use App\Filament\Widgets\StatsPatient;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
@@ -20,8 +22,7 @@ use Illuminate\View\Middleware\ShareErrorsFromSession;
 
 class AdminPanelProvider extends PanelProvider
 {
-    public static $title = 'Custom Page Title';
-
+protected int | string | array $columnSpan = 'full';
     public function panel(Panel $panel): Panel
     {
         
@@ -38,9 +39,11 @@ class AdminPanelProvider extends PanelProvider
             ->pages([
                 Pages\Dashboard::class,
             ])
-            ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
+            // ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
             ->widgets([
                 // Widgets\AccountWidget::class,
+                StatsPatient::class,
+                PatientsChartWidget::class,
                 // Widgets\FilamentInfoWidget::class,
             ])
             ->middleware([
